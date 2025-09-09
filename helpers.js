@@ -54,6 +54,7 @@ function onEvent(id, type, callback) {
     node.addEventListener(type, callback);
   }
   
+  // (typedef kept only once at the bottom for IntelliSense)
   /**
    * Change how an element looks or behaves using CSS-style properties.
    * Accepts JS-style property names (e.g., backgroundColor, fontSize).
@@ -213,19 +214,25 @@ function onEvent(id, type, callback) {
   
     node.src = url;
   }
-  
   /**
-   * App Lab–style name for setting an image URL on an existing <img>.
-   * If it doesn't exist, creates one (like image()).
-   * @example setImageURL("photo", "https://example.com/cat.png");
+   * Show an element (display: "").
+   * @example showElement("menu");
    */
-  function setImageURL(id, url) {
-    image(id, url);
+  function showElement(id) {
+    setProperty(id, "display", "");
   }
   
   /**
-   * Play a sound file. Some browsers require user interaction first.
-   * @example playSound("ding.mp3"); playSound("loop.mp3", true);
+   * Hide an element (display: "none").
+   * @example hideElement("menu");
+   */
+  function hideElement(id) {
+    setProperty(id, "display", "none");
+  }
+  
+  /**
+   * Play a sound from a URL. Optionally loop.
+   * @example playSound("sound.mp3", true);
    */
   function playSound(url, loop) {
     try {
@@ -242,22 +249,6 @@ function onEvent(id, type, callback) {
     } catch (e) {
       console.error("playSound: " + e);
     }
-  }
-  
-  /**
-   * Show an element (display: "").
-   * @example showElement("menu");
-   */
-  function showElement(id) {
-    setProperty(id, "display", "");
-  }
-  
-  /**
-   * Hide an element (display: "none").
-   * @example hideElement("menu");
-   */
-  function hideElement(id) {
-    setProperty(id, "display", "none");
   }
   
   /**
@@ -397,41 +388,9 @@ function onEvent(id, type, callback) {
     var node = document.getElementById(id);
     if (!node) {
       console.error("hasClass: No element with id='" + id + "'");
-      return false;
-    }
-    if (node.classList) {
-      return node.classList.contains(className);
-    }
-    var classes = (node.className || "").split(/\s+/);
-    for (var i = 0; i < classes.length; i++) {
-      if (classes[i] === className) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
-  /**
-   * Set an element's style using a CSS text string.
-   * @example setStyle("title", "color: red; font-weight: bold;");
-   */
-  function setStyle(id, cssText) {
-    var node = document.getElementById(id);
-    if (!node) {
-      console.error("setStyle: No element with id='" + id + "'");
-      return;
-    }
-    if (typeof cssText !== "string") {
-      console.error("setStyle: cssText must be a string like 'color: red; font-size: 20px;'");
-      return;
-    }
-    node.style.cssText += ";" + cssText;
-  }
-  
   // ---------------------------------------------------
   // JSDoc typedef for IntelliSense (safe at the bottom)
   // ---------------------------------------------------
-  
   /**
    * @typedef {
    *  "display"|"color"|
